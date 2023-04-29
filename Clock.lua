@@ -73,7 +73,6 @@ function onDraw()
 end
 	
 -- Needed function below
-
 drf=screen.drawRectF
 pgt=property.getText
 FONT=pgt("FONT1")..pgt("FONT2")

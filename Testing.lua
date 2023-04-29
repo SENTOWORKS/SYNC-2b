@@ -1,3 +1,7 @@
+-- Author: SENTOWORKS
+-- GitHub: <GithubLink>
+-- Workshop: <WorkshopLink>
+--
 --- Developed using LifeBoatAPI - Stormworks Lua plugin for VSCode - https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --- If you have any issues, please report them here: https://github.com/nameouschangey/STORMWORKS_VSCodeExtension/issues - by Nameous Changey
 
@@ -13,10 +17,9 @@
 do
     ---@type Simulator -- Set properties and screen sizes here - will run once when the script is loaded
     simulator = simulator
-    simulator:setScreen(1, "2x1")
-    simulator:setProperty("FONT1", "00019209B400AAAA793CA54A555690015244449415500BA00049038000092549F6DE592EE7CEE79EB792F39EF3DEE492F7DEF79E104110490A201C7008A04504")
-    simulator:setProperty("FONT2", "FFFE57DAD75C7246D6DCF34EF3487256B7DAE92E64D4B75A924EBEDAF6DA56D4D74856B2D75A711CE924B6DEB6A4B6FAB55AB524E54ED24C911264965400000E")
-    
+    simulator:setScreen(1, "3x3")
+    simulator:setProperty("ExampleNumberProperty", 123)
+
     -- Runs every tick just before onTick; allows you to simulate the inputs changing
     ---@param simulator Simulator Use simulator:<function>() to set inputs etc.
     ---@param ticks     number Number of ticks since simulator started
@@ -31,11 +34,7 @@ do
         simulator:setInputNumber(4, screenConnection.touchY)
 
         -- NEW! button/slider options from the UI
-        simulator:setInputBool(31, simulator:getIsClicked(1))       -- if button 1 is clicked, provide an ON pulse for input.getBool(31)
-        simulator:setInputNumber(31, simulator:getSlider(1))        -- set input 31 to the value of slider 1
-
-        simulator:setInputBool(32, simulator:getIsToggled(2))       -- make button 2 a toggle, for input.getBool(32)
-        simulator:setInputNumber(32, simulator:getSlider(2) * 50)   -- set input 32 to the value from slider 2 * 50
+        simulator:setInputBool(4, simulator:getIsToggled(2))
     end;
 end
 ---@endsection
@@ -48,12 +47,22 @@ end
 
 ticks = 0
 function onTick()
-    ticks = ticks + 1
+click = input.getBool(4)
+
+output.setBool(5,toggle(click))
 end
-
-function onDraw()
-    screen.drawCircle(16,16,5)
+function toggle(clicked)
+if clicked and out and active then
+    out = false
+    active = false
+else
+    if clicked and not out and active then 
+        out = true
+        active = false
+    end
 end
-
-
-
+if not clicked then
+    active = true
+end
+return out
+end

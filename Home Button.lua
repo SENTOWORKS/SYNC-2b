@@ -65,6 +65,9 @@ function onTick()
 
 	-- Set the composite output, on/off channel 1
 	output.setBool(1, home)
+	output.setNumber(1, inputX)
+	output.setNumber(1, inputY)
+	
 end
 
 function onDraw()
