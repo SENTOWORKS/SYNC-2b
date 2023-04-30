@@ -1,4 +1,4 @@
-Logic Controls For AC Panel
+Logic Controls For AUX Panel
 
 | LOGIC INPUTS      | Number | Value | Desc.                           | --- | LOGIC OUTPUTS | Number | Value | Desc.                      |
 | Touchscreen Pulse | 1      | 1/0   | Single Press From Screen        | --- | -------       | -      | -     | -                          |

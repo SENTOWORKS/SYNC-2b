@@ -38,10 +38,11 @@
     ],
     "Lua.runtime.pathStrict": true,
     "Lua.workspace.library": [
-        "c:/Users/samsm/Documents/SENTOWORKS/SYNC 2b/",
+        "c:/Users/samsm/Documents/GitHub/SYNC-2b/",
         "c:/Users/samsm/.vscode/extensions/nameouschangey.lifeboatapi-0.0.33/assets/lua/Common/",
         "c:/Users/samsm/.vscode/extensions/nameouschangey.lifeboatapi-0.0.33/assets/lua/Microcontroller/",
-        "c:/Users/samsm/Documents/SENTOWORKS/SYNC 2b/_build/libs/"
+        "C:/Users/samsm/Documents/GitHub/SYNC-2b/Icon Lib/",
+        "c:/Users/samsm/Documents/GitHub/SYNC-2b/_build/libs/"
     ],
     "lifeboatapi.stormworks.libs.gitLibraries": [
         {

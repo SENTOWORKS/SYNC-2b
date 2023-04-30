@@ -14,3 +14,7 @@ Logic Controls For AC Panel
 | Touchscreen X      | 3      | X     | From Touchscreen                     | --- | ------------- | ------ | ------ | -------------------------- |
 | Touchscreen Y      | 4      | X     | From Touchscreen                     | --- | ------------- | ------ | ------ | -------------------------- |
 | Outside Temperture | 5      | X (C) | From Temperture Probe                | --- | ------------- | ------ | ------ | -------------------------- |
+
+| Property    | Type | Value                     | Desc.                                           |
+| Heater Type | Bool | On (Auto), Off (Non-Auto) | Adds AUTO to temperture sensor equiped vehicles |
+|             |      |                           |                                                 |
