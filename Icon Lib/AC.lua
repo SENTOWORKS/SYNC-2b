@@ -1,9 +1,7 @@
 col = screen.setColor
 dL = screen.drawLine
-dR = screen.drawRect
 dRF = screen.drawRectF
-inn = input.getNumber
-dTF = screen.drawTriangleF
+
 
 function acicon(x,y,r,g,b,a)
     col(60,60,60)

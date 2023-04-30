@@ -1,9 +1,6 @@
 col = screen.setColor
 dL = screen.drawLine
-dR = screen.drawRect
 dRF = screen.drawRectF
-inn = input.getNumber
-dTF = screen.drawTriangleF
 
 function rgbicon(x,y)
     col(60,60,60)
