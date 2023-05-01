@@ -1,5 +1,6 @@
 
 -- cdst(Y,TEXT,SIZE,ORIENT,pulse)
+-- pulse is supplied from external blinker in a constant on for the text scroll.
 
 -- Scrolling Text Requires All Following Functions
 drf=screen.drawRectF
