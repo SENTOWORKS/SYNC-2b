@@ -76,14 +76,15 @@ function onTick()
 
         col(150,150,150)
         dst(14,6,"Model",1,4)
-        cdst(21,md,1,4,pulse)
+        cdst(21,md,1,4,pulse,1)
     
         dst(29,8,"Trim",1,4)
-        cdst(36,tr,1,4,pulse)
+        cdst(36,tr,1,4,pulse,2)
     
         dst(44,8,"Type",1,4)
-        cdst(51,ty,1,4,pulse)
+        cdst(51,ty,1,4,pulse,3)
     end
+
 
 
 
@@ -93,11 +94,16 @@ function onTick()
 -- Scrolling Text Requires All Following Functions
 drf=screen.drawRectF
 pgt=property.getText
-x = 0
-function cdst(x,text,size,orient,p)
+val = {}
+val[1] = 0
+val[2] = 0
+val[3] = 0
+
+
+function cdst(x,text,size,orient,p,inst)
 	tt = splitstr(text)
 	if #text > 7 then
-	num = counter(p,false,true,1,#text-6,0,0)
+	num = counter(p,false,true,1,#text-6,0,0,inst)
 	texto = tt[num+1] .. tt[num+2] .. tt[num+3] .. tt[num+4] .. tt[num+5] .. tt[num+6] .. tt[num+7]
 	dst(x,2,texto,size,orient)
 	else
@@ -105,25 +111,25 @@ function cdst(x,text,size,orient,p)
 	end
 end
 
-function counter(up,down,clamp,incr,nmax,nmin,nrst)
+function counter(up,down,clamp,incr,nmax,nmin,nrst,inst)
   if up then
       if clamp then
-          x = math.min((x+incr),nmax)
+          val[inst] = math.min((val[inst]+incr),nmax)
       else
-          x = x+incr
+          val[inst] = val[inst]+incr
       end
   end
   if down then
       if clamp then
-          x = math.max((x-incr),nmin)
+          val[inst] = math.max((val[inst]-incr),nmin)
       else
-          x = x-incr
+          val[inst] = val[inst]-incr
       end
   end
-  if x == nmax then
-      x = nrst
+  if val[inst] == nmax then
+      val[inst] = nrst
   end 
-  return x
+  return val[inst]
 end
 
 function splitstr(text)

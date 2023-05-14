@@ -43,6 +43,10 @@ do
 
         -- NEW! button/slider options from the UI
         simulator:setInputBool(1, simulator:getIsClicked(1))       -- if button 1 is clicked, provide an ON pulse for input.getBool(31)
+        simulator:setInputNumber(5, simulator:getSlider(1) *2)
+
+        simulator:setInputBool(4, simulator:getIsClicked(2))
+        simulator:setInputBool(5, simulator:getIsClicked(3))
     end;
 end
 ---@endsection
@@ -77,8 +81,10 @@ function onTick()
     text[5] = pgt("PTO")
     text[6] = pgt("Regen")
     
-    x =1
+    downarrow = input.getBool(4)
+    uparrow = input.getBool(5)
     pulse = input.getBool(1)
+    line = counter(downarrow,uparrow,true,1,3,0,0,7, false) +1
     end
     
     function onDraw()
@@ -95,14 +101,14 @@ function onTick()
         dr(51,0,6,31)
 
         col(150,150,150)
-        cdst(14,title[x],1,4,pulse)
-        cdst(21,text[x],1,4,pulse)
+        cdst(14,title[line],1,4,pulse,1)
+        cdst(21,text[line],1,4,pulse,2)
     
-        cdst(29,title[x],1,4,pulse)
-        cdst(36,text[x],1,4,pulse)
+        cdst(29,title[line+1],1,4,pulse,3)
+        cdst(36,text[line+1],1,4,pulse,4)
     
-        cdst(44,title[x],1,4,pulse)
-        cdst(51,text[x],1,4,pulse)
+        cdst(44,title[line+2],1,4,pulse,5)
+        cdst(51,text[line+2],1,4,pulse,6)
     end
 
 
@@ -113,11 +119,20 @@ function onTick()
 -- Scrolling Text Requires All Following Functions
 drf=screen.drawRectF
 pgt=property.getText
-x = 0
-function cdst(x,text,size,orient,p)
+val = {}
+val[1] = 0
+val[2] = 0
+val[3] = 0
+val[4] = 0
+val[5] = 0
+val[6] = 0
+val[7] = 0
+
+
+function cdst(x,text,size,orient,p,inst)
 	tt = splitstr(text)
 	if #text > 7 then
-	num = counter(p,false,true,1,#text-6,0,0)
+	num = counter(p,false,true,1,#text-6,0,0,inst, true)
 	texto = tt[num+1] .. tt[num+2] .. tt[num+3] .. tt[num+4] .. tt[num+5] .. tt[num+6] .. tt[num+7]
 	dst(x,2,texto,size,orient)
 	else
@@ -125,25 +140,25 @@ function cdst(x,text,size,orient,p)
 	end
 end
 
-function counter(up,down,clamp,incr,nmax,nmin,nrst)
+function counter(up,down,clamp,incr,nmax,nmin,nrst,inst, loop)
   if up then
       if clamp then
-          x = math.min((x+incr),nmax)
+          val[inst] = math.min((val[inst]+incr),nmax)
       else
-          x = x+incr
+          val[inst] = val[inst]+incr
       end
   end
   if down then
       if clamp then
-          x = math.max((x-incr),nmin)
+          val[inst] = math.max((val[inst]-incr),nmin)
       else
-          x = x-incr
+          val[inst] = val[inst]-incr
       end
   end
-  if x == nmax then
-      x = nrst
+  if val[inst] == nmax and loop then
+      val[inst] = nrst
   end 
-  return x
+  return val[inst]
 end
 
 function splitstr(text)
