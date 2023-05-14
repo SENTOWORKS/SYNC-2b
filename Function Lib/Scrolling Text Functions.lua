@@ -1,15 +1,23 @@
-
--- cdst(Y,TEXT,SIZE,ORIENT,pulse)
+-- cdst(Y,TEXT,SIZE,ORIENT,pulse,instance)
 -- pulse is supplied from external blinker in a constant on for the text scroll.
-
+-- instance is the text box number for scroll instance, add one to the val[x] = 0 for instance
 -- Scrolling Text Requires All Following Functions
 drf=screen.drawRectF
 pgt=property.getText
-x = 0
-function cdst(x,text,size,orient,p)
+val = {}
+val[1] = 0
+val[2] = 0
+val[3] = 0
+val[4] = 0
+val[5] = 0
+val[6] = 0
+val[7] = 0
+
+
+function cdst(x,text,size,orient,p,inst)
 	tt = splitstr(text)
 	if #text > 7 then
-	num = counter(p,false,true,1,#text-6,0,0)
+	num = counter(p,false,true,1,#text-6,0,0,inst, true)
 	texto = tt[num+1] .. tt[num+2] .. tt[num+3] .. tt[num+4] .. tt[num+5] .. tt[num+6] .. tt[num+7]
 	dst(x,2,texto,size,orient)
 	else
@@ -17,25 +25,25 @@ function cdst(x,text,size,orient,p)
 	end
 end
 
-function counter(up,down,clamp,incr,nmax,nmin,nrst)
+function counter(up,down,clamp,incr,nmax,nmin,nrst,inst, loop)
   if up then
       if clamp then
-          x = math.min((x+incr),nmax)
+          val[inst] = math.min((val[inst]+incr),nmax)
       else
-          x = x+incr
+          val[inst] = val[inst]+incr
       end
   end
   if down then
       if clamp then
-          x = math.max((x-incr),nmin)
+          val[inst] = math.max((val[inst]-incr),nmin)
       else
-          x = x-incr
+          val[inst] = val[inst]-incr
       end
   end
-  if x == nmax then
-      x = nrst
+  if val[inst] == nmax and loop then
+      val[inst] = nrst
   end 
-  return x
+  return val[inst]
 end
 
 function splitstr(text)
