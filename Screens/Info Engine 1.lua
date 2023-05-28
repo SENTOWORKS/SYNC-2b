@@ -42,11 +42,7 @@ do
         simulator:setInputNumber(4, screenConnection.touchY)
 
         -- NEW! button/slider options from the UI
-        simulator:setInputBool(1, simulator:getIsClicked(1))       -- if button 1 is clicked, provide an ON pulse for input.getBool(31)
-        simulator:setInputNumber(5, simulator:getSlider(1) *2)
-
-        simulator:setInputBool(4, simulator:getIsClicked(2))
-        simulator:setInputBool(5, simulator:getIsClicked(3))
+        simulator:setInputBool(3, simulator:getIsClicked(1))
     end;
 end
 ---@endsection
@@ -61,7 +57,7 @@ drf=screen.drawRectF
 pgt=property.getText
 dr = screen.drawRect
 col = screen.setColor
-
+dTF = screen.drawTriangleF
 title = {}
 text = {}
 
@@ -81,13 +77,23 @@ function onTick()
     text[5] = pgt("PTO")
     text[6] = pgt("Regen")
     
-    downarrow = input.getBool(4)
-    uparrow = input.getBool(5)
-    pulse = input.getBool(1)
-    line = counter(downarrow,uparrow,true,1,3,0,0,7, false) +1
+    inputX = input.getNumber(3)
+    inputY = input.getNumber(4)
+    Pressed = input.getBool(1)
+    Pulse = input.getBool(2)
+    pulse = input.getBool(3)
+
+
+    up = Pressed and iPIR(inputX, inputY, 8, 2, 5, 5)
+    down = Pressed and iPIR(inputX, inputY, 58, 2, 5, 5)
+    line = counter(down,up,true,1,3,0,0,7, false) +1
     end
     
     function onDraw()
+
+        dTF(13,3,13,9,10,6)
+        dTF(60,3,60,9,63,6)
+
         col(20,20,20)
         drf(21,0,7,33)
         
@@ -208,4 +214,8 @@ end
 if r%2==1 then x=x+i else y=y+i end
 end
 end
+end
+
+function iPIR(x, y, rectX, rectY, rectW, rectH)
+	return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
 end

@@ -80,7 +80,7 @@ function onTick()
     pwr = inb(6)
 
     up = Pressed and iPIR(inputX, inputY, 15, 1, 5, 5) or Pulse and iPIR(inputX, inputY, 15, 1, 5, 5) 
-    down = Pressed and iPIR(inputX, inputY, 19, 1, 5, 5) or Pulse and iPIR(inputX, inputY, 15, 1, 5, 5) 
+    down = Pressed and iPIR(inputX, inputY, 19, 1, 5, 5) or Pulse and iPIR(inputX, inputY, 19, 1, 5, 5) 
 
     if enableauto then
         oauto = Pressed and iPIR(inputX, inputY, 26,9,9,22)
