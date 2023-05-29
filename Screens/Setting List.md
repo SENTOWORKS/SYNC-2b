@@ -1,10 +1,10 @@
 # Head
 
 | Setting                 | Logic Number | On    | Off   |  | Setting         | Number |
-| Touchscreen Tap         | 1            | Pulse | Pulse |  | Touchscreen X   | 1      |
-| Touchscreen Timer       | 2            | Timer | Timer |  | Touchscreen Y   | 2      |
-| Temperture Unit         | 3            | C     | F     |  |                 | 3      |
-|                         | 4            |       |       |  |                 | 4      |
+| Touchscreen Tap         | 1            | Pulse | Pulse |  | Monitor Width   | 1      |
+| Touchscreen Timer       | 2            | Timer | Timer |  | Monitor Length  | 2      |
+| Temperture Unit         | 3            | C     | F     |  | Touchscreen X   | 3      |
+|                         | 4            |       |       |  | Touchscreen Y   | 4      |
 |                         | 5            |       |       |  |                 | 5      |
 |                         | 6            |       |       |  |                 | 6      |
 |                         | 7            |       |       |  |                 | 7      |

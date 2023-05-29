@@ -39,7 +39,7 @@ do
         simulator:setInputNumber(4, screenConnection.touchY)
 
         -- NEW! button/slider options from the UI
-        simulator:setInputBool(1, simulator:getIsClicked(1))       -- if button 1 is clicked, provide an ON pulse for input.getBool(31)
+        simulator:setInputBool(2, simulator:getIsClicked(1))       -- if button 1 is clicked, provide an ON pulse for input.getBool(31)
     end;
 end
 ---@endsection
@@ -58,7 +58,7 @@ function onTick()
     md = pgt("Model")
     tr = pgt("Trim")
     ty = pgt("Type")
-    pulse = input.getBool(1)
+    pulse = input.getBool(3)
     end
     
     function onDraw()
