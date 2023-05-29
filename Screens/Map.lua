@@ -50,11 +50,59 @@ end
 -- try require("Folder.Filename") to include code from another file in this, so you can store code in libraries
 -- the "LifeBoatAPI" is included by default in /_build/libs/ - you can use require("LifeBoatAPI") to get this, and use all the LifeBoatAPI.<functions>!
 
-ticks = 0
+-- Tick function that will be executed every logic tick
 function onTick()
-    ticks = ticks + 1
+    x = input.getNumber(5)
+    y = input.getNumber(6)
+
+    inputX = input.getNumber(3)
+	inputY = input.getNumber(4)
+	isPressed = input.getBool(1)
+
+	plus = isPressed and isPointInRectangle(inputX, inputY, 7, 0, 7,7)
+	minus = isPressed and isPointInRectangle(inputX, inputY, 7, 25, 5,7)
+	
+    zoom = counter(minus,plus,false,true,0.1,50,0.1,1,1,false)
+
 end
 
+
 function onDraw()
-    screen.drawCircle(16,16,5)
+screen.drawMap(x, y, zoom)
+screen.setColor(255,0,0)
+screen.drawRect(32,16,1,1)
+
+screen.setColor(2,35,172)
+screen.drawLine(10,1,10,6)
+screen.drawLine(8,3,13,3)
+
+screen.drawLine(10,26,10,31)
+end
+
+val = {}
+val[1] = 1
+
+function counter(up,down,reset,clamp,incr,nmax,nmin,nrst,inst, loop)
+    if up then
+        if clamp then
+            val[inst] = math.min((val[inst]+incr),nmax)
+        else
+            val[inst] = val[inst]+incr
+        end
+    end
+    if down then
+        if clamp then
+            val[inst] = math.max((val[inst]-incr),nmin)
+        else
+            val[inst] = val[inst]-incr
+        end
+    end
+    if val[inst] == nmax and loop or reset then
+        val[inst] = nrst
+    end 
+    return val[inst]
+  end
+
+function isPointInRectangle(x, y, rectX, rectY, rectW, rectH)
+	return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
 end
