@@ -51,7 +51,6 @@ function onTick()
 
 	Time = input.getNumber(1)
 	Hour = math.floor(Time * 24)
-	output.setNumber(1, Hour)
 	Minute = math.floor(Time * 1440 - Hour * 60)
 	
 		if Hour >= 12 then

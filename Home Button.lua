@@ -60,13 +60,22 @@ function onTick()
 	inputX = input.getNumber(3)
 	inputY = input.getNumber(4)
 	isPressed = input.getBool(1)
+	Time = input.getNumber(5)
+	Hour = math.floor(Time * 24)
+	Minute = math.floor(Time * 1440 - Hour * 60)
+	
+		if Hour >= 12 then
+			Hour = Hour - 12
+			Time = "PM"
+		else 
+			Time = "AM"
+		end
+		if Hour == 0 then
+			Hour = 12
+		end	
 
 	home = isPressed and isPointInRectangle(inputX, inputY, 5, 10, 8, 10)
-
-	-- Set the composite output, on/off channel 1
 	output.setBool(1, home)
-	output.setNumber(1, inputX)
-	output.setNumber(1, inputY)
 	
 end
 
@@ -76,16 +85,11 @@ function onDraw()
 	dRF(7,0,65,33)
 	
 
-	
+	-- Black Border
 	col(0,0,0)
-
-tx=7
-ty=20
-trx=7
-try=12
-	dTF(tx,ty,tx+7,ty,tx,ty+7)
-	dTF(trx,try,trx+6,try,trx,try-6)
-	dRF(trx,try,6,9)
+	dTF(7,20,14,20,7,27)
+	dTF(7,12,13,12,7,6)
+	dRF(7,12,6,9)
 	
 	--Home Button	
 	col(0,255,0,150)
@@ -101,11 +105,41 @@ try=12
 	col(255,0,0,150)
 	dR(10,18,1,1)
 
---col(255,0,0)
---dRF(5, 10, 7, 11)
-
+	-- Clock
+	clock = string.format("%02d :%02d",Hour,Minute).." ".. Time
+	screen.setColor(150, 150, 150)
+	dst(0,1,clock,1,4)
 end
 	
 function isPointInRectangle(x, y, rectX, rectY, rectW, rectH)
 	return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
+end
+
+-- Needed function below
+drf=screen.drawRectF
+pgt=property.getText
+FONT=pgt("FONT1")..pgt("FONT2")
+FONT_D={}
+FONT_S=0
+for n in FONT:gmatch("....")do FONT_D[FONT_S+1]=tonumber(n,16)FONT_S=FONT_S+1 end
+function dst(x,y,t,s,r,m)s=s or 1
+r=r or 1
+if r>2 then t=t:reverse()end
+t=t:upper()for c in t:gmatch(".")do
+ci=c:byte()-31 if 0<ci and ci<=FONT_S then
+for i=1,15 do
+if r>2 then p=2^i else p=2^(16-i)end
+if FONT_D[ci]&p==p then
+xx,yy=((i-1)%3)*s,((i-1)//3)*s
+if r%2==1 then drf(x+xx,y+yy,s,s)else drf(x+5-yy,y+xx,s,s)end
+end
+end
+if FONT_D[ci]&1==1 and not m then
+i=2*s
+else
+i=4*s
+end
+if r%2==1 then x=x+i else y=y+i end
+end
+end
 end
