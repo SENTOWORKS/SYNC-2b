@@ -1,6 +1,6 @@
 -- Author: SENTOWORKS
--- GitHub: <GithubLink>
--- Workshop: <WorkshopLink>
+-- GitHub: https://github.com/SENTOWORKS/SYNC-2b
+-- Workshop: 
 --
 --- Developed using LifeBoatAPI - Stormworks Lua plugin for VSCode - https://code.visualstudio.com/download (search "Stormworks Lua with LifeboatAPI" extension)
 --- If you have any issues, please report them here: https://github.com/nameouschangey/STORMWORKS_VSCodeExtension/issues - by Nameous Changey
@@ -18,9 +18,8 @@ do
     ---@type Simulator -- Set properties and screen sizes here - will run once when the script is loaded
     simulator = simulator
     simulator:setScreen(1, "2x1")
-    simulator:setProperty("FONT1", "00019209B400AAAA793CA54A555690015244449415500BA00049038000092549F6DE592EE7CEE79EB792F39EF3DEE492F7DEF79E104110490A201C7008A04504")
-    simulator:setProperty("FONT2", "FFFE57DAD75C7246D6DCF34EF3487256B7DAE92E64D4B75A924EBEDAF6DA56D4D74856B2D75A711CE924B6DEB6A4B6FAB55AB524E54ED24C911264965400000E")
-    
+    simulator:setProperty("ExampleNumberProperty", 123)
+
     -- Runs every tick just before onTick; allows you to simulate the inputs changing
     ---@param simulator Simulator Use simulator:<function>() to set inputs etc.
     ---@param ticks     number Number of ticks since simulator started
@@ -51,10 +50,55 @@ end
 -- the "LifeBoatAPI" is included by default in /_build/libs/ - you can use require("LifeBoatAPI") to get this, and use all the LifeBoatAPI.<functions>!
 
 ticks = 0
+
+col = screen.setColor
+dL = screen.drawLine
+dR = screen.drawRect
+dRF = screen.drawRectF
+inb = input.getBool
+inn = input.getNumber
+dTF = screen.drawTriangleF
+chr = string.char
+
 function onTick()
-    ticks = ticks + 1
+pwr = false
+
 end
 
 function onDraw()
-    screen.drawCircle(16,16,5)
+
+--Radio Boxes
+col(0,0,0)
+dRF(14,24,7,7)
+dRF(14,1,7,22)
+
+dRF(22,24,7,7)
+dRF(22,1,7,22)
+
+dRF(30,1,7,30)
+dRF(38,1,7,30)
+
+
+--Power Button
+if pwr then
+	col(0,100,0,150)
+else
+	col(60,0,0,150)
+end
+dL(16,25,19,25)
+dL(15,27,18,27)
+dL(16,29,19,29)
+dL(19,26,19,29)
+
+col(60,60,60)
+
+--Source Select
+dL(23,25,23,30)
+dL(25,25,25,30)
+dL(27,25,27,30)
+
+--AM/FM
+dL(17,13,17,9)
+
+
 end
