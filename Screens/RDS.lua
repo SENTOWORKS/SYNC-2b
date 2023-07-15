@@ -50,25 +50,14 @@ end
 -- the "LifeBoatAPI" is included by default in /_build/libs/ - you can use require("LifeBoatAPI") to get this, and use all the LifeBoatAPI.<functions>!
 
 ticks = 0
-
-col = screen.setColor
-dL = screen.drawLine
-dR = screen.drawRect
-dRF = screen.drawRectF
-inb = input.getBool
-inn = input.getNumber
-dTF = screen.drawTriangleF
-chr = string.char
-
 function onTick()
-pwr = false
-
+    ticks = ticks + 1
+    pwr = false
 end
 
 function onDraw()
-
 --Radio Boxes
-col(0,0,0)
+col(10,0,0)
 dRF(14,24,7,7)
 dRF(14,1,7,22)
 
@@ -85,6 +74,7 @@ if pwr then
 else
 	col(60,0,0,150)
 end
+
 dL(16,25,19,25)
 dL(15,27,18,27)
 dL(16,29,19,29)
@@ -100,5 +90,16 @@ dL(27,25,27,30)
 --AM/FM
 dL(17,13,17,9)
 
-
 end
+
+
+
+
+col = screen.setColor
+dL = screen.drawLine
+dR = screen.drawRect
+dRF = screen.drawRectF
+inb = input.getBool
+inn = input.getNumber
+dTF = screen.drawTriangleF
+chr = string.char
