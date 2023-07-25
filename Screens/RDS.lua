@@ -53,9 +53,12 @@ ticks = 0
 function onTick()
     ticks = ticks + 1
     pwr = false
+    frq = 88
+    seek = true
 end
 
 function onDraw()
+
 --Radio Boxes
 col(10,0,0)
 dRF(14,24,7,7)
@@ -90,6 +93,30 @@ dL(27,25,27,30)
 --AM/FM
 dL(17,13,17,9)
 
+if fm then
+	col(200,200,200)
+	dst(14,15,"FM",1,4)
+	col(60,60,60)
+	dst(14,2,"AM",1,4)
+	mhz = string.format("%03d",frq)
+	dst(22,7,mhz,1,4)
+else
+	col(200,200,200)
+	dst(14,2,"AM",1,4)
+	col(60,60,60)
+	dst(14,15,"FM",1,4)
+	mhz = string.format("%04d",frq)
+	dst(22,5,mhz,1,4)
+end
+
+--RDS
+if seek then
+	dst(38,2,"SEEKING",1,4)
+else	
+--	rds = chr(rds1) .. chr(rds2) .. chr(rds3) .. chr(rds4) .. chr(rds5) .. chr(rds6) .. chr(rds7)
+--	dst(38,2,rds,1,4)
+end
+
 end
 
 
@@ -103,3 +130,31 @@ inb = input.getBool
 inn = input.getNumber
 dTF = screen.drawTriangleF
 chr = string.char
+
+drf=screen.drawRectF
+pgt=property.getText
+FONT=pgt("FONT1")..pgt("FONT2")
+FONT_D={}
+FONT_S=0
+for n in FONT:gmatch("....")do FONT_D[FONT_S+1]=tonumber(n,16)FONT_S=FONT_S+1 end
+function dst(x,y,t,s,r,m)s=s or 1
+r=r or 1
+if r>2 then t=t:reverse()end
+t=t:upper()for c in t:gmatch(".")do
+ci=c:byte()-31 if 0 < ci and ci <= FONT_S then
+for i=1,15 do
+if r>2 then p=2^i else p=2^(16-i)end
+if FONT_D[ci]&p==p then
+xx,yy=((i-1)%3)*s,((i-1)//3)*s
+if r%2==1 then drf(x+xx,y+yy,s,s)else drf(x+5-yy,y+xx,s,s)end
+end
+end
+if FONT_D[ci]&1==1 and not m then
+i=2*s
+else
+i=4*s
+end
+if r%2==1 then x=x+i else y=y+i end
+end
+end
+end
