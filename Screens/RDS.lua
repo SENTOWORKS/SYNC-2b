@@ -19,6 +19,9 @@ do
     simulator = simulator
     simulator:setScreen(1, "2x1")
     simulator:setProperty("ExampleNumberProperty", 123)
+    simulator:setProperty("FONT1", "00019209B400AAAA793CA54A555690015244449415500BA00049038000092549F6DE592EE7CEE79EB792F39EF3DEE492F7DEF79E104110490A201C7008A04504")
+    simulator:setProperty("FONT2", "FFFE57DAD75C7246D6DCF34EF3487256B7DAE92E64D4B75A924EBEDAF6DA56D4D74856B2D75A711CE924B6DEB6A4B6FAB55AB524E54ED24C911264965400000E")
+
 
     -- Runs every tick just before onTick; allows you to simulate the inputs changing
     ---@param simulator Simulator Use simulator:<function>() to set inputs etc.
@@ -116,6 +119,35 @@ else
 --	rds = chr(rds1) .. chr(rds2) .. chr(rds3) .. chr(rds4) .. chr(rds5) .. chr(rds6) .. chr(rds7)
 --	dst(38,2,rds,1,4)
 end
+
+--Seek
+--AS R
+dL(31, 6,33 ,4)
+dL(35, 6,32 ,3)
+
+dL(31, 9,34 ,6)
+dL(35, 9,32 ,6)
+
+dL(31, 3,36 ,3)
+dL(33, 6,33 ,3)
+
+--AS L
+dL(31,22,34,25)
+dL(35,22,32,25)
+
+dL(31,25,34,28)
+dL(35,25,32,28)
+
+dL(35,28,30,28)
+dL(33,28,33,24)
+
+--L
+dL(31,17,34,20)
+dL(35,17,32,20)
+
+--R
+dL(31,14,34,11)
+dL(35,14,32,11)
 
 end
 
