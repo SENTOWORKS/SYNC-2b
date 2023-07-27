@@ -54,6 +54,20 @@ end
 
 ticks = 0
 function onTick()
+    
+    inputX = input.getNumber(3)
+	inputY = input.getNumber(4)
+	isPressed = input.getBool(1)
+
+	powerswitch = isPressed and isPointInRectangle(inputX, inputY, 14, 24, 7,7)
+	recallswitch = isPressed and isPointInRectangle(inputX, inputY, 22, 24, 7,7)
+    fmamswitch = isPressed and isPointInRectangle(inputX, inputY, 14, 1, 7,22)
+    seekleft = isPressed and isPointInRectangle(inputX, inputY, 30,11,6,4)
+	seekright = isPressed and isPointInRectangle(inputX, inputY, 30,16,6,4)
+	autoseekleft = isPressed and isPointInRectangle(inputX, inputY, 30,21,6,8)
+	autoseekright = isPressed and isPointInRectangle(inputX, inputY, 30,2,6,8)
+
+
     ticks = ticks + 1
     pwr = false
     frq = 88
@@ -162,9 +176,74 @@ inb = input.getBool
 inn = input.getNumber
 dTF = screen.drawTriangleF
 chr = string.char
-
 drf=screen.drawRectF
 pgt=property.getText
+
+val = {}
+val[1] = 0
+val[2] = 0
+val[3] = 0
+val[4] = 0
+val[5] = 0
+val[6] = 0
+val[7] = 0
+
+
+function cdst(x,text,size,orient,p,inst)
+	tt = splitstr(text)
+	if #text > 7 then
+	num = counter(p,false,true,1,#text-6,0,0,inst, true)
+	texto = tt[num+1] .. tt[num+2] .. tt[num+3] .. tt[num+4] .. tt[num+5] .. tt[num+6] .. tt[num+7]
+	dst(x,2,texto,size,orient)
+	else
+	dst(x,cenjus(text),text,size,orient)
+	end
+end
+
+function counter(up,down,clamp,incr,nmax,nmin,nrst,inst, loop)
+  if up then
+      if clamp then
+          val[inst] = math.min((val[inst]+incr),nmax)
+      else
+          val[inst] = val[inst]+incr
+      end
+  end
+  if down then
+      if clamp then
+          val[inst] = math.max((val[inst]-incr),nmin)
+      else
+          val[inst] = val[inst]-incr
+      end
+  end
+  if val[inst] == nmax and loop then
+      val[inst] = nrst
+  end 
+  return val[inst]
+end
+
+function splitstr(text)
+    t = {}
+    for i = 1, #text do
+        t[i] = string.sub(text,i,i)
+    end
+    return t
+end
+
+function cenjus(text)
+z = 17-(2*#text)
+y = clamp(z,2,16)
+return y
+end
+
+function clamp(inVal, minVal, maxVal)
+	if inVal < minVal then
+		return minVal
+	elseif inVal > maxVal then
+		return maxVal
+	else return inVal
+	end
+end
+
 FONT=pgt("FONT1")..pgt("FONT2")
 FONT_D={}
 FONT_S=0
